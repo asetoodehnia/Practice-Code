@@ -1,40 +1,34 @@
-float X, Y, Vx, Vy, Ax, Ay, sz;
+PVector loc, V, A;
+float sz;
 
 void setup(){
   background(0);
   size(800,600);
   colorMode(HSB, 360, 100, 100, 100);
-  X = width/2;
-  Y = height/2;
-  Vx = 0;
-  Vy = 0;
-  Ax = .1;
-  Ay = .1;
+  loc = new PVector(width/2, height/2);
+  V = new PVector(0,0);
+  A = new PVector(.1, .1); 
   sz = 50;
 }
 
 void draw() {
-  Vx += Ax;
-  Vy += Ay;
-  
-  X += Vx;
-  Y += Vy;
+  V.add(A);
+  loc.add(V);
   
   fill(frameCount%360,100,100);
-  ellipse(X, Y, sz, sz);
+  ellipse(loc.x, loc.y, sz, sz);
   
-  if(X + sz/2 < 0) {
-    X = width + sz/2;
+  if(loc.x + sz/2 < 0) {
+    loc.x = width + sz/2;
   }
-  if(X - sz/2 > width) {
-    X = -sz/2;
+  if(loc.x - sz/2 > width) {
+    loc.x = -sz/2;
   }
-  if(Y + sz/2 < 0) {
-    Y = height + sz/2;
+  if(loc.y + sz/2 < 0) {
+    loc.y = height + sz/2;
   }
-  if(Y - sz/2 > height) {
-    Y = -sz/2;
+  if(loc.y - sz/2 > height) {
+    loc.y = -sz/2;
   }
-  Ax = random(-.1, .1);
-  Ay = random(-.1, .1);
+  A = new PVector(random(-.1, .1),random(-.1, .1));
 }
