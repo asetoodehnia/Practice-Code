@@ -30,5 +30,5 @@ void draw() {
   if(loc.y - sz/2 > height) {
     loc.y = -sz/2;
   }
-  A = new PVector(random(-.1, .1),random(-.1, .1));
+  A.set(random(-.1, .1),random(-.1, .1));
 }
