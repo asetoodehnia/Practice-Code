@@ -39,6 +39,12 @@ void draw() {
       vel[i].y *= -1;
     }
     
+    for (int n = 0; n < loc.length; n++){
+      if(dist(loc[i].x, loc[i].y, loc[loc.length - (n+1)].x, loc[loc.length - (n+1)].y) < sz && !(loc.length -n-1==i)){
+        vel[i].x = -abs(vel[i]);
+      }
+    }
+    
     if (dist(mouseX, mouseY, loc[i].x, loc[i].y) < sz/2) {
       col[i] = color (frameCount%360, 100, 100, 100);
     } else {
