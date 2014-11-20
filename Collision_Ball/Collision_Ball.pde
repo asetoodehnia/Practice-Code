@@ -1,54 +1,58 @@
 //declare loc, vel, and acc
-PVector loc[] = new PVector[10];
-PVector vel[] = new PVector[10];
-PVector acc[] = new PVector[10];
-color col[] = new color[10];
-float sz = 50;
+int count = 500;
+PVector loc[] = new PVector[count];
+PVector vel[] = new PVector[count];
+PVector acc[] = new PVector[count];
+color col[] = new color[count];
+PVector velc[]= new PVector[count];
+float sz[] = new float[count];
+
 void setup() {
   background(0);
   colorMode(HSB, 360, 100, 100, 100);
   size(800, 600);
   //initialize loc, vel, and acc
   for (int i = 0; i<loc.length; i++) {
-    loc[i] = new PVector(width/2, height/2);
+    sz[i] = 20;
+    loc[i] = new PVector(random(0, width), random(0, height));
     vel[i] = PVector.random2D();    //random direction
-    vel[i].mult(random(1, 5));
+    vel[i].mult(random(-5, 5));
     acc[i] = new PVector(0, 0);
+    velc[i] = new PVector(0, 0);
     col[i] = color(360);
   }
 }
 
 void draw() {
   background(0);
-  for (int i = 0; i<loc.length; i++) {
+  for (int i = 0; i < count; i++) {
+    col[i] = color(frameCount%360, 100, 100, 100);
     fill(col[i]);
-
     //move the ball
     vel[i].add(acc[i]);
     loc[i].add(vel[i]);
 
-    //draw the ball
-    ellipse(loc[i].x, loc[i].y, sz, sz);
-
-
-    //bounce the ball
-    if (loc[i].x + sz/2 > width || loc[i].x - sz/2 < 0) {
-      vel[i].x *= -1;
-    }
-    if (loc[i].y + sz/2 > height || loc[i].y - sz/2 < 0) {
-      vel[i].y *= -1;
-    }
-    
-    for (int n = 0; n < loc.length; n++){
-      if(dist(loc[i].x, loc[i].y, loc[loc.length - (n+1)].x, loc[loc.length - (n+1)].y) < sz && !(loc.length -n-1==i)){
-        vel[i].x = -abs(vel[i]);
+    for (int j = 0; j < count; j++) {
+      if (i!=j) {
+        if (loc[i].dist(loc[j]) < sz[i]/2 +sz[j]/2) {
+          vel[i].mult(vel[i], 1, velc[i]);
+          vel[j].mult(vel[j], 1, vel[i]);
+          velc[i].mult(velc[i], 1, vel[j]);
+        }
       }
     }
-    
-    if (dist(mouseX, mouseY, loc[i].x, loc[i].y) < sz/2) {
-      col[i] = color (frameCount%360, 100, 100, 100);
-    } else {
-      col[i] = color (360);
+
+    acc[i].set(random(-.1, .1), random(-.1, .1));
+
+    //draw the ball
+    ellipse(loc[i].x, loc[i].y, sz[i], sz[i]);
+
+    //bounce the ball
+    if (loc[i].x + sz[i]/2 > width || loc[i].x - sz[i]/2 < 0) {
+      vel[i].x *= -1;
+    }
+    if (loc[i].y + sz[i]/2 > height || loc[i].y - sz[i]/2 < 0) {
+      vel[i].y *= -1;
     }
   }
 }
