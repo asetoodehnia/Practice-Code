@@ -1,5 +1,5 @@
 //declare loc, vel, and acc
-int count = 500;
+int count = 100;
 PVector loc[] = new PVector[count];
 PVector vel[] = new PVector[count];
 PVector acc[] = new PVector[count];
@@ -41,8 +41,6 @@ void draw() {
         }
       }
     }
-
-    acc[i].set(random(-.1, .1), random(-.1, .1));
 
     //draw the ball
     ellipse(loc[i].x, loc[i].y, sz[i], sz[i]);
