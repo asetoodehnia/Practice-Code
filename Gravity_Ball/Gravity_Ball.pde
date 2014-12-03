@@ -25,6 +25,12 @@ class GravityBall {
   float BallY;
   float sz;
   float Vy;
+  color c;
+  
+  GravityBall(float tempsz, float tempc) {
+    sz = tempsz;
+    tempc = c;
+  }
 
   GravityBall() {
     sz = random(50);
