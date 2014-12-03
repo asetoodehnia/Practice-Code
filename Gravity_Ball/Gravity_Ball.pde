@@ -1,20 +1,21 @@
-float n = 20;
+int n = 200;
 GravityBall[] Ball1 = new GravityBall[n];
 
 void setup() {
   size(800, 600);
   for (int i = 0; i < n; i++) {
-    Ball1 = new GravityBall();
+    Ball1[i] = new GravityBall();
   }
 }
 
 void draw() {
   background(255);
   fill(0);
-
-  Ball1.move();
-  Ball1.bounce();
-  Ball1.display();
+  for (int i = 0; i < n; i++) {
+    Ball1[i].move();
+    Ball1[i].bounce();
+    Ball1[i].display();
+  }
 }
 
 
@@ -28,9 +29,9 @@ class GravityBall {
   GravityBall() {
     sz = random(50);
     BallX = random(sz/2, width-sz/2);
-    BallY = 0;
+    BallY = random(sz/2,height-sz);
     Vy = 0;
-    a = .98;
+    a = .8;
   }
 
   void display() {
