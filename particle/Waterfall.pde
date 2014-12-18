@@ -12,7 +12,7 @@ class Waterfall {
     acc = new PVector(0, 0);
   }
    
-  void draw(){
+  void display(){
     vel.add(acc);
     loc.add(vel);
     acc.mult(0);
